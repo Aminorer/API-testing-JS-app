@@ -23,8 +23,5 @@ jobs:
       - name: Build Docker image
         run: docker build -t aminebelahbib1402/api-testing-js-app:latest .
 
-      - name: Verify DockerHub Login
-        run: docker info
-
       - name: Push Docker image to DockerHub
         run: docker push aminebelahbib1402/api-testing-js-app:latest
