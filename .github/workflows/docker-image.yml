@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: test docker
 
 on:
   workflow_run:
@@ -13,11 +13,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          repository: Aminorer/API-testing-JS-app
-
-      - name: Docker Logout
-        run: docker logout
 
       - name: Log in to DockerHub
         uses: docker/login-action@v2
@@ -25,11 +20,10 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Verify DockerHub Login
-        run: docker info
-
-      - name: Build Docker image
-        run: docker build -t aminebelahbib1402/API-testing-JS-app:latest .
+      - name: Build and tag Docker image
+        run: |
+          docker build -t aminebelahbib1402/API-testing-JS-app:latest .
+          docker tag aminebelahbib1402/API-testing-JS-app:latest aminebelahbib1402/API-testing-JS-app:latest
 
       - name: Push Docker image to DockerHub
         run: docker push aminebelahbib1402/API-testing-JS-app:latest
